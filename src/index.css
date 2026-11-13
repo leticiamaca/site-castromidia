@@ -1,0 +1,246 @@
+/* ─────────────────────────────────────────────────────────────
+   index.css
+   Fundo único e contínuo da aplicação.
+   Nenhum componente deve declarar background-color próprio.
+   ───────────────────────────────────────────────────────────── */
+.hero-bg {
+  background-image: var(--img-tabuleiro);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Tokens de cor ─────────────────────────────────────────── */
+:root {
+  --prata: #CFCDD3;
+  --prata-claro: #E8E8E8;
+  --prata-excuro: #74747E;
+  --rose: #c4899a;
+  --rose-light: #e8b4c0;
+  --black: #050505; /* preto mais intenso */
+  --img-tabuleiro: url("/background.png");
+}
+
+/* ── Reset & base ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--black);
+}
+
+/* ── FUNDO ÚNICO E CONTÍNUO ────────────────────────────────────
+   Um único gradiente radial é aplicado no body como fundo fixo.
+   Os componentes ficam transparentes em cima desse canvas.
+   ─────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  background-color: var(--black);
+  overflow-x: hidden;
+  
+  background-image:
+    /* Luz topo — centro */
+    radial-gradient(
+      ellipse 60% 35% at 50% 0%,
+      #cfcdd39c 0%,
+      transparent 100%
+    ),
+    /* Luz fundo — centro */
+    radial-gradient(
+      ellipse 60% 35% at 50% 100%,
+      #cfcdd327 0%,
+      transparent 100%
+    );
+  
+ 
+  color: #181414;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Tipografia helper ─────────────────────────────────────── */
+.font-display {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700; /* ou 800 */
+}
+
+/* ── Gradiente de texto dourado ────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--gold-light) 0%,
+    var(--gold) 50%,
+    var(--gold-dark) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Linha divisória seção ─────────────────────────────────── */
+.divider {
+  width: 48px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  margin: 0 auto 1.75rem;
+}
+
+/* ── Card base (sem background próprio) ────────────────────── */
+.card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  backdrop-filter: blur(2px);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(201, 168, 76, 0.08);
+}
+
+/* ── Spotlight interativo (segue o cursor) ──────────────────── */
+.card {
+  background: rgba(232, 232, 232, 0.025);
+  border: 1px solid rgba(232, 232, 232, 0.12);
+  backdrop-filter: blur(2px);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(232, 232, 232, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(232, 232, 232, 0.08);
+}
+
+/* ── Spotlight interativo (segue o cursor) ──────────────────── */
+
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    280px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(var(--spot-color, 232, 232, 232), 0.16),
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ── Botões ────────────────────────────────────────────────── */
+.btn-silver {
+  background: linear-gradient(
+    135deg,
+    #E8E8E8,
+    #CFCDD3,
+    #74747E
+  );
+  color: #060606;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.btn-silver:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 1px solid #CFCDD3;
+  color: #CFCDD3;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-outline:hover {
+  background: #CFCDD3;
+  color: #060606;
+}
+
+/* ── Nav link com underline animado ───────────────────────── */
+.nav-link {
+  position: relative;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.nav-link:hover {
+  color: #fff;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ── Fade-up on scroll ─────────────────────────────────────── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.65s ease both;
+}
+.delay-1 {
+  animation-delay: 0.12s;
+}
+.delay-2 {
+  animation-delay: 0.24s;
+}
+.delay-3 {
+  animation-delay: 0.38s;
+}
+.delay-4 {
+  animation-delay: 0.52s;
+}
+
+/* ── Esconde a scrollbar em faixas de rolagem horizontal ───── */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Stat display number ───────────────────────────────────── */
+.stat-number {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
